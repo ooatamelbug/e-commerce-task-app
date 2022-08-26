@@ -15,6 +15,7 @@ module.exports = function (app) {
 
           table.string("name");
           table.string("address");
+          table.string("logo");
 
           table
             .integer("user_id")

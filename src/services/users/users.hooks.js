@@ -1,32 +1,53 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
-
+const { authenticate } = require("@feathersjs/authentication").hooks;
+const validation = require("feathers-validate-joi");
 const {
-  hashPassword, protect
-} = require('@feathersjs/authentication-local').hooks;
+  createSchema,
+  options,
+  updateSchema,
+  idSchema,
+} = require("./user.validation");
+
+const { hashPassword, protect } =
+  require("@feathersjs/authentication-local").hooks;
+
+const validationUser = require("../../hooks/validation-user");
 
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt') ],
-    create: [ hashPassword('password') ],
-    update: [ hashPassword('password'),  authenticate('jwt') ],
-    patch: [ hashPassword('password'),  authenticate('jwt') ],
-    remove: [ authenticate('jwt') ]
+    find: [authenticate("jwt")],
+    get: [authenticate("jwt"), validation.form(idSchema, options)],
+    create: [
+      hashPassword("password"),
+      validation.form(createSchema, options),
+      validationUser(),
+    ],
+    update: [
+      hashPassword("password"),
+      authenticate("jwt"),
+      validation.form(updateSchema, options),
+      validationUser(),
+    ],
+    patch: [
+      hashPassword("password"),
+      authenticate("jwt"),
+      validation.form(idSchema, options),
+    ],
+    remove: [authenticate("jwt")],
   },
 
   after: {
-    all: [ 
+    all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
-      protect('password')
+      protect("password"),
     ],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -36,6 +57,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };
