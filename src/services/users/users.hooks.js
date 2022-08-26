@@ -12,6 +12,8 @@ const { hashPassword, protect } =
 
 const validationUser = require("../../hooks/validation-user");
 
+const processUser = require('../../hooks/process-user');
+
 module.exports = {
   before: {
     all: [],
@@ -44,7 +46,7 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [],
+    create: [processUser()],
     update: [],
     patch: [],
     remove: [],
