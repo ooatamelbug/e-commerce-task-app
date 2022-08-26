@@ -15,8 +15,14 @@ module.exports = function (app) {
       
         table.string('email').unique();
         table.string('password');
+
+        table.string('firstname');
+        table.string('lastname');
+
+        table.string('phone');
       
-      
+        table.timestamps(true, true);
+        
       })
         .then(() => console.log(`Created ${tableName} table`))
         .catch(e => console.error(`Error creating ${tableName} table`, e));
