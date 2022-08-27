@@ -15,7 +15,7 @@ module.exports = function (app) {
 
           table.double("discount");
 
-          table.integer("count_product");
+          table.reinteger("count_product");
 
           table.double("total_price");
 
@@ -27,7 +27,7 @@ module.exports = function (app) {
             .inTable("users")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
-            
+
           table.timestamps(true, true);
         })
         .then(() => console.log(`Created ${tableName} table`))
