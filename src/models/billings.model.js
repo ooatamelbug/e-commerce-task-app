@@ -28,14 +28,7 @@ module.exports = function (app) {
             .inTable("orders")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
-
-          table
-            .integer("order_id")
-            .reference("id")
-            .inTable("orders")
-            .onDelete("CASCADE")
-            .onUpdate("CASCADE");
-
+          
           table.timestamps(true, true);
         })
         .then(() => console.log(`Created ${tableName} table`))
