@@ -5,7 +5,7 @@ const {
   options,
   updateSchema,
   idSchema,
-} = require("./cart.validation");
+} = require("./order_details.validation");
 
 module.exports = {
   before: {

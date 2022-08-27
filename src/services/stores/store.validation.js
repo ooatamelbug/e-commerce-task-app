@@ -4,19 +4,19 @@ const joi = require('joi');
 const createSchema = joi.object().keys({
     name: joi.string().trim().required().min(3),
     address: joi.string().trim().required().min(3),
-    user_id: joi.number().trim().min(1).required(),
+    user_id: joi.number().min(1).required(),
 });
 
 
 // create user schema
 const updateSchema = joi.object().keys({
-    name: joi.optional().string().trim().min(3),
-    address: joi.optional().string().trim().min(3),
-    user_id: joi.number().trim().min(1).required(),
+    name: joi.string().trim().min(3),
+    address: joi.string().trim().min(3),
+    user_id: joi.number().min(1).required(),
 });
 
 const idSchema = joi.object().keys({
-    id: joi.number().trim().required(),
+    id: joi.number().required(),
 });
 
 const options = { convert: true, abortEarly: false }; 

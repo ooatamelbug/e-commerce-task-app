@@ -2,23 +2,23 @@ const joi = require('joi');
 
 // create user schema
 const createSchema = joi.object().keys({
-    product_id: joi.number().trim().required().min(1),
-    order_id: joi.number().trim().required().min(1),
-    quantity: joi.number().trim().min(1).required(),
-    price_of_one: joi.number().less(1.5).precision(3).min(1).trim().required()
+    product_id: joi.number().required().min(1),
+    order_id: joi.number().required().min(1),
+    quantity: joi.number().min(1).required(),
+    price_of_one: joi.number().less(1.5).precision(3).min(1).required()
 });
 
 
 // create user schema
 const updateSchema = joi.object().keys({
-    product_id: joi.number().trim().min(3).optional(),
-    order_id: joi.number().trim().min(3).optional(),
-    quantity: joi.number().trim().min(8).optional(),
-    price_of_one: joi.number().precision(3).min(1).trim().optional()
+    product_id: joi.number().min(3).optional(),
+    order_id: joi.number().min(3).optional(),
+    quantity: joi.number().min(8).optional(),
+    price_of_one: joi.number().precision(3).min(1).optional()
 });
 
 const idSchema = joi.object().keys({
-    id: joi.number().trim().required(),
+    id: joi.number().required(),
 });
 
 const options = { convert: true, abortEarly: false }; 

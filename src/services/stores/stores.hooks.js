@@ -5,7 +5,7 @@ const {
   options,
   updateSchema,
   idSchema,
-} = require("./user.validation");
+} = require("./store.validation");
 
 const proccessStore = require('../../hooks/proccess-store');
 

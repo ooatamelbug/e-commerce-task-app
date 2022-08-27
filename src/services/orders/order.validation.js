@@ -2,10 +2,10 @@ const joi = require('joi');
 
 // create user schema
 const createSchema = joi.object().keys({
-    user_id: joi.number().trim().required().min(1),
-    count_product: joi.number().trim().required().min(1),
-    discount: joi.number().trim().optional().min(0),
-    total_price: joi.number().precision(3).trim().required().min(1),
+    user_id: joi.number().required().min(1),
+    count_product: joi.number().required().min(1),
+    discount: joi.number().optional().min(0),
+    total_price: joi.number().precision(3).required().min(1),
 });
 
 
@@ -15,7 +15,7 @@ const updateSchema = joi.object().keys({
 });
 
 const idSchema = joi.object().keys({
-    id: joi.number().trim().required(),
+    id: joi.number().required(),
 });
 
 const options = { convert: true, abortEarly: false }; 

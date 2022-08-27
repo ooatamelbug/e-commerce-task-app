@@ -4,27 +4,27 @@ const joi = require('joi');
 const createSchema = joi.object().keys({
     name: joi.string().trim().required().min(3),
     description: joi.string().trim().required().min(3),
-    quantity: joi.number().trim().min(1).required(),
-    price: joi.number().precision(3).trim().required(),
+    quantity: joi.number().min(1).required(),
+    price: joi.number().precision(3).required(),
     status: joi.string().trim().required(),
     image_url: joi.string().trim().optional(),
-    store_id: joi.number().min(1).trim().required()
+    store_id: joi.number().min(1).required()
 });
 
 
 // create user schema
 const updateSchema = joi.object().keys({
-    name: joi.optional().string().trim().min(3),
-    description: joi.optional().string().trim().min(3),
-    quantity: joi.optional().number().trim().min(8),
-    price: joi.number().precision(3).trim().optional(),
+    name: joi.string().trim().min(3),
+    description: joi.string().trim().min(3),
+    quantity: joi.number().min(8),
+    price: joi.number().precision(3).optional(),
     status: joi.string().trim().optional(),
-    image_url: joi.string().trim().optional(),
-    store_id: joi.number().min(1).trim().optional()
+    image_url: joi.string().trim(),
+    store_id: joi.number().min(1)
 });
 
 const idSchema = joi.object().keys({
-    id: joi.number().trim().required(),
+    id: joi.number().required(),
 });
 
 const options = { convert: true, abortEarly: false }; 

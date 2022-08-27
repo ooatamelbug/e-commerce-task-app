@@ -5,6 +5,7 @@ const {
   updateSchema,
   idSchema,
 } = require("./products.validation");
+const validation = require("feathers-validate-joi");
 
 module.exports = {
   before: {

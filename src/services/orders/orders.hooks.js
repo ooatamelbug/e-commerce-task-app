@@ -5,7 +5,7 @@ const {
   options,
   updateSchema,
   idSchema,
-} = require("./cart.validation");
+} = require("./order.validation");
 
 const processBeforeOrder = require('../../hooks/process-before-order');
 
