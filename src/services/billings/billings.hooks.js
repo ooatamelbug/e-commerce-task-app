@@ -3,6 +3,8 @@ const validation = require("feathers-validate-joi");
 const { createSchema, options, idSchema } = require('./billing.validation')
 const processBilling = require('../../hooks/process-billing');
 
+const processBillingOrder = require('../../hooks/process-billing-order');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -18,7 +20,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [processBillingOrder()],
     update: [],
     patch: [],
     remove: []
