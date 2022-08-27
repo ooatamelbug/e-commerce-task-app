@@ -21,6 +21,9 @@ module.exports = function (app) {
           table.double("price");
 
           table.string("status");
+
+          table.string("image_url");
+          
           table
             .integer("store_id")
             .references("id")

@@ -1,14 +1,24 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
+const { authenticate } = require("@feathersjs/authentication").hooks;
+const {
+  createSchema,
+  options,
+  updateSchema,
+  idSchema,
+} = require("./products.validation");
 
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [authenticate('jwt')],
-    update: [authenticate('jwt')],
-    patch: [authenticate('jwt')],
-    remove: [authenticate('jwt')]
+    create: [authenticate("jwt"), validation.form(createSchema, options)],
+    update: [
+      authenticate("jwt"),
+      validation.form(updateSchema, options),
+      validation.form(idSchema, options),
+    ],
+    patch: [authenticate("jwt"), validation.form(updateSchema, options)],
+    remove: [authenticate("jwt"), validation.form(idSchema, options)],
   },
 
   after: {
@@ -18,7 +28,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -28,6 +38,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };

@@ -23,4 +23,12 @@ exports.CartDetails = class CartDetails extends Service {
 
     return super.create(addToCart, param);
   }
+
+  find(param) {
+    if(!param.cart_id) {
+      return super.find();
+    } else {
+      return super.knex.select("*").from("cart-details").where("cart_id = ?", param.cart_id)
+    }
+  }
 };

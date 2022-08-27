@@ -9,7 +9,7 @@ module.exports = (options = {}) => {
     const getpopulateProduct = async (cartDetails) => {
       const product = await app
         .service("products")
-        .get({ id: cartDetails.id }, param);
+        .get(cartDetails.id, param);
       return {
         ...cartDetails,
         product
