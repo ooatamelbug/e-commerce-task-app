@@ -9,6 +9,8 @@ const {
 
 const processBeforeOrder = require('../../hooks/process-before-order');
 
+const processAfterOrder = require('../../hooks/process-after-order');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -24,7 +26,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [processAfterOrder()],
     update: [],
     patch: [],
     remove: []
