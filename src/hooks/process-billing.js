@@ -13,13 +13,13 @@ module.exports = (options = {}) => {
       throw new Error(`you are not allow to paid this order`)
     }
 
-    const newpill = {
+    const newBill = {
       ...data,
       total_amount: order.total_price,
       type_paid: data.typePaid,
       user_id: params.user.id
     }
-    context.data =  newpill;   
+    context.data =  newBill;   
     return context;
   };
 };
