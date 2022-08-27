@@ -1,14 +1,21 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const validation = require("feathers-validate-joi");
+const {
+  createSchema,
+  options,
+  updateSchema,
+  idSchema,
+} = require("./cart.validation");
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
-    get: [],
-    create: [],
-    update: [],
+    get: [validation.form(idSchema, options)],
+    create: [validation.form(createSchema, options)],
+    update: [validation.form(idSchema, options), validation.form(updateSchema, options)],
     patch: [],
-    remove: []
+    remove: [validation.form(idSchema, options)]
   },
 
   after: {
