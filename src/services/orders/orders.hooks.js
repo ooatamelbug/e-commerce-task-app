@@ -7,12 +7,14 @@ const {
   idSchema,
 } = require("./cart.validation");
 
+const processBeforeOrder = require('../../hooks/process-before-order');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [validation.form(createSchema, options)],
+    create: [validation.form(createSchema, options), processBeforeOrder()],
     update: [validation.form(updateSchema, options), validation.form(idSchema, options)],
     patch: [],
     remove: [validation.form(idSchema, options)]
