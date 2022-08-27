@@ -11,6 +11,8 @@ const processBeforeOrder = require('../../hooks/process-before-order');
 
 const processAfterOrder = require('../../hooks/process-after-order');
 
+const populateOrder = require('../../hooks/populate-order');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -24,8 +26,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [populateOrder()],
+    get: [populateOrder()],
     create: [processAfterOrder()],
     update: [],
     patch: [],
