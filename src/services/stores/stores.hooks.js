@@ -7,25 +7,31 @@ const {
   idSchema,
 } = require("./store.validation");
 
-const proccessStore = require('../../hooks/proccess-store');
+const proccessStore = require("../../hooks/proccess-store");
+
+const processBeforeRequest = require("../../hooks/process-before-request");
 
 module.exports = {
   before: {
     all: [],
     find: [],
-    get: [validation.form(idSchema, options)],
-    create: [authenticate("jwt"), validation.form(createSchema, options)],
+    get: [],
+    create: [
+      authenticate("jwt"),
+      processBeforeRequest(),
+      validation.form(createSchema, options),
+    ],
     update: [
       authenticate("jwt"),
+      processBeforeRequest(),
       validation.form(updateSchema, options),
-      validation.form(idSchema, options),
     ],
     patch: [
       authenticate("jwt"),
+      processBeforeRequest(),
       validation.form(updateSchema, options),
-      validation.form(idSchema, options),
     ],
-    remove: [authenticate("jwt"), validation.form(idSchema, options)],
+    remove: [authenticate("jwt"), processBeforeRequest()],
   },
 
   after: {

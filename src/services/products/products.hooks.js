@@ -7,25 +7,36 @@ const {
 } = require("./products.validation");
 const validation = require("feathers-validate-joi");
 
+const processProduct = require("../../hooks/process-product");
+
+const populateProduct = require('../../hooks/populate-product');
+
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [authenticate("jwt"), validation.form(createSchema, options)],
+    create: [
+      authenticate("jwt"),
+      validation.form(createSchema, options),
+      processProduct(),
+    ],
     update: [
       authenticate("jwt"),
       validation.form(updateSchema, options),
-      validation.form(idSchema, options),
+      processProduct(),
     ],
     patch: [authenticate("jwt"), validation.form(updateSchema, options)],
-    remove: [authenticate("jwt"), validation.form(idSchema, options)],
+    remove: [
+      authenticate("jwt"),
+      processProduct(),
+    ],
   },
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [populateProduct()],
+    get: [populateProduct()],
     create: [],
     update: [],
     patch: [],

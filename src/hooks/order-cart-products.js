@@ -3,14 +3,14 @@
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
-  return async (context) => {
-    const { data, app } = context;
+  return async context => {
+    const { data, app, params } = context;
 
-    const user = await app.service("users").find({ query: {  email: data.email} });
-    if (user.data.length > 0) {
-      throw new Error("this email is exist before");
+    const product = await app.service("products").get(data.product_id);
+    if(product.quantity  < data.quantity) {
+      throw new Error("there are not enough quantity");
     }
-
+    
     return context;
   };
 };

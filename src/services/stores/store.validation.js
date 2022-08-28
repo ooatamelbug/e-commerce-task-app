@@ -12,6 +12,8 @@ const createSchema = joi.object().keys({
 const updateSchema = joi.object().keys({
     name: joi.string().trim().min(3),
     address: joi.string().trim().min(3),
+    logo: joi.string().trim().min(3),
+    updated_at: joi.date(),
     user_id: joi.number().min(1).required(),
 });
 

@@ -11,13 +11,13 @@ const populateCart = require('../../hooks/populate-cart');
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
-    find: [],
-    get: [validation.form(idSchema, options)],
+    all: [ ],
+    find: [authenticate('jwt') ],
+    get: [authenticate('jwt') ,validation.form(idSchema, options)],
     create: [validation.form(createSchema, options)],
-    update: [validation.form(updateSchema, options), validation.form(idSchema, options)],
-    patch: [validation.form(updateSchema, options), validation.form(idSchema, options)],
-    remove: [validation.form(idSchema, options)]
+    update: [authenticate('jwt') ,validation.form(updateSchema, options), validation.form(idSchema, options)],
+    patch: [authenticate('jwt') ,validation.form(updateSchema, options), validation.form(idSchema, options)],
+    remove: [authenticate('jwt') ,validation.form(idSchema, options)]
   },
 
   after: {

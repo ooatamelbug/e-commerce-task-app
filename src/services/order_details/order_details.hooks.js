@@ -7,13 +7,21 @@ const {
   idSchema,
 } = require("./order_details.validation");
 
+const orderCartProducts = require('../../hooks/order-cart-products');
+
+const processOrderDetails = require('../../hooks/process-order-details');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
     get: [validation.form(idSchema, options)],
-    create: [validation.form(createSchema, options)],
-    update: [validation.form(idSchema, options), validation.form(updateSchema, options)],
+    create: [validation.form(createSchema, options), orderCartProducts()],
+    update: [
+      validation.form(idSchema, options),
+      validation.form(updateSchema, options),
+      orderCartProducts()
+    ],
     patch: [],
     remove: [validation.form(idSchema, options)]
   },
@@ -22,7 +30,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [processOrderDetails()],
     update: [],
     patch: [],
     remove: []

@@ -7,13 +7,19 @@ const {
   idSchema,
 } = require("./cart_details.validation");
 
+const orderCartProducts = require('../../hooks/order-cart-products');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [validation.form(createSchema, options)],
-    update: [validation.form(updateSchema, options), validation.form(idSchema, options)],
+    create: [validation.form(createSchema, options), orderCartProducts()],
+    update: [
+      validation.form(updateSchema, options),
+      validation.form(idSchema, options),
+      orderCartProducts()
+    ],
     patch: [validation.form(updateSchema, options), validation.form(idSchema, options)],
     remove: [validation.form(idSchema, options)]
   },

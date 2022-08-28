@@ -9,14 +9,15 @@ exports.Carts = class Carts extends Service {
   }
 
   create(data, param) {
-    const { userId } = data;
+    const { user_id } = data;
 
     const newCart = {
-      user_id: userId,
+      user_id: user_id,
       count_product: 0,
       total_price: 0.0,
     };
-
+    // console.log(userId)
+    console.log(newCart)
     return super.create(newCart, param);
   }
 

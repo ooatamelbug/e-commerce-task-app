@@ -4,15 +4,17 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async (context) => {
-    const { app, param, result, method } = context;
+    const { app, params, result, method } = context;
+
+    if(params.user.id != result.data.user_id) {
+      throw new Error('NOT ALLOW')
+    }
 
     const getpopulateProduct = async (cartDetails) => {
-      const product = await app
-        .service("products")
-        .get(cartDetails.id, param);
+      const product = await app.service("products").get(cartDetails.id, param);
       return {
         ...cartDetails,
-        product
+        product,
       };
     };
 
@@ -20,12 +22,12 @@ module.exports = (options = {}) => {
       const user = await app.service("users").get(cart.user_id, param);
       const cart_details = await app
         .service("cart-details")
-        .find({ cart_id: cart.id });
+        .find({ query: { cart_id: cart.id } });
       return {
         ...cart,
         user,
         cart_details: {
-           ...(await Promise.all(cart_details.map(getpopulateProduct))),
+          ...(await Promise.all(cart_details.map(getpopulateProduct))),
         },
       };
     };

@@ -16,7 +16,7 @@ const createSchema = joi.object().keys({
 const updateSchema = joi.object().keys({
     name: joi.string().trim().min(3),
     description: joi.string().trim().min(3),
-    quantity: joi.number().min(8),
+    quantity: joi.number().min(1),
     price: joi.number().precision(3).optional(),
     status: joi.string().trim().optional(),
     image_url: joi.string().trim(),
