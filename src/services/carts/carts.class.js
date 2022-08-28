@@ -17,7 +17,7 @@ exports.Carts = class Carts extends Service {
       total_price: 0.0,
     };
     // console.log(userId)
-    console.log(newCart)
+    console.log(newCart);
     return super.create(newCart, param);
   }
 };

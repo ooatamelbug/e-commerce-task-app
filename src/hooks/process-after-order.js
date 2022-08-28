@@ -4,7 +4,7 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async (context) => {
-    const { app, params, result, method } = context;
+    const { app, params, result } = context;
     const { user } = params;
 
     // get cart data of user auth
@@ -21,21 +21,21 @@ module.exports = (options = {}) => {
         price_of_one: cartDetails.price_of_one,
         order_id: result.id,
         product_id: cartDetails.product_id
-      }
+      };
       await app
         .service("order-details")
         .create(newOrderDetails, params);
     };
     // create order_details
     await Promise.all(
-       userCartDetails.data.map(addOrderDetails)
+      userCartDetails.data.map(addOrderDetails)
     );
 
     // delete user cart
-    const deleteUserCart = await app.service("carts").remove(userCart.id);
+    await app.service("carts").remove(userCart.id);
 
     // recreate User Cart
-    const createUserCart = await app.service("carts").create({ user_id :user.id }, params);
+    await app.service("carts").create({ user_id :user.id }, params);
 
     return context;
   };

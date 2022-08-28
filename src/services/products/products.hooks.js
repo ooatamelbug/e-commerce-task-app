@@ -3,13 +3,12 @@ const {
   createSchema,
   options,
   updateSchema,
-  idSchema,
 } = require("./products.validation");
 const validation = require("feathers-validate-joi");
 
 const processProduct = require("../../hooks/process-product");
 
-const populateProduct = require('../../hooks/populate-product');
+const populateProduct = require("../../hooks/populate-product");
 
 module.exports = {
   before: {
@@ -27,10 +26,7 @@ module.exports = {
       processProduct(),
     ],
     patch: [authenticate("jwt"), validation.form(updateSchema, options)],
-    remove: [
-      authenticate("jwt"),
-      processProduct(),
-    ],
+    remove: [authenticate("jwt"), processProduct()],
   },
 
   after: {

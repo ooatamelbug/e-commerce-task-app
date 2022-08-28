@@ -1,11 +1,6 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const validation = require("feathers-validate-joi");
-const {
-  createSchema,
-  options,
-  updateSchema,
-  idSchema,
-} = require("./order.validation");
+const { createSchema, options, updateSchema } = require("./order.validation");
 
 const processBeforeOrder = require("../../hooks/process-before-order");
 
@@ -19,9 +14,7 @@ module.exports = {
     find: [],
     get: [],
     create: [processBeforeOrder(), validation.form(createSchema, options)],
-    update: [
-      validation.form(updateSchema, options),
-    ],
+    update: [validation.form(updateSchema, options)],
     patch: [validation.form(updateSchema, options)],
     remove: [],
   },

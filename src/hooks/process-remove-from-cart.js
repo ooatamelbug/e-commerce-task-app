@@ -5,12 +5,14 @@
 module.exports = (options = {}) => {
   return async context => {
     const { app, params, id } = context;
+
+    // get item In Cart details and get the cart id and user of cart
     const itemInCart = await app.service("cart-details").get(id);
-    let knexd = app.get("knexClient");
-    const cartOfOwner = await knexd.select("*").from("carts").where("id", itemInCart.cart_id);
-    
+    let knexClient = app.get("knexClient");
+    const cartOfOwner = await knexClient.select("*").from("carts").where("id", itemInCart.cart_id);
+    // authorize to this operation
     if(params.user.id != cartOfOwner[0].user_id) {
-      throw new Error('NOT ALLOW')
+      throw new Error("NOT ALLOW");
     }
 
     return context;

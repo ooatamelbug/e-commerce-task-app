@@ -1,11 +1,6 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const validation = require("feathers-validate-joi");
-const {
-  createSchema,
-  options,
-  updateSchema,
-  idSchema,
-} = require("./store.validation");
+const { createSchema, options, updateSchema } = require("./store.validation");
 
 const proccessStore = require("../../hooks/proccess-store");
 

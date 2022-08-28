@@ -4,7 +4,7 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
-    const { data, app, params } = context;
+    const { data, app } = context;
     
     // make sure the mount of product is enough
     const product = await app.service("products").get(data.product_id);

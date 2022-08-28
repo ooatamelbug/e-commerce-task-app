@@ -12,7 +12,7 @@ exports.Orders = class Orders extends Service {
     const { discount, count_product, total_price, user_id } = data;
 
     const newOrder = {
-      discount : discount || 0,
+      discount: discount || 0,
       count_product,
       total_price: total_price - (discount || 0),
       user_id,

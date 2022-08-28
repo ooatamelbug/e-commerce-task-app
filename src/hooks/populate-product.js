@@ -12,14 +12,14 @@ module.exports = (options = {}) => {
       return {
         ...product,
         store
-      }
-    }
+      };
+    };
 
 
     if(method == "find") {
-      result.data = await Promise.all(result.data.map(getStore))
+      result.data = await Promise.all(result.data.map(getStore));
     } else {
-      context.result = await getStore(result)
+      context.result = await getStore(result);
     }
     return context;
   };

@@ -17,7 +17,7 @@ module.exports = (options = {}) => {
     }, 0);
 
     // update cart with data after add new item in cart or remove 
-    const update = await app.service("carts").patch(
+    await app.service("carts").patch(
       result.cart_id,
       {
         count_product: productOfCart.data.length,

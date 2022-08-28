@@ -1,19 +1,19 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
+const { authenticate } = require("@feathersjs/authentication").hooks;
 const validation = require("feathers-validate-joi");
-const { createSchema, options, idSchema } = require('./billing.validation')
-const processBilling = require('../../hooks/process-billing');
+const { createSchema, options, idSchema } = require("./billing.validation");
+const processBilling = require("../../hooks/process-billing");
 
-const processBillingOrder = require('../../hooks/process-billing-order');
+const processBillingOrder = require("../../hooks/process-billing-order");
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [authenticate("jwt")],
     find: [],
     get: [validation.form(idSchema, options)],
-    create: [processBilling(), validation.form(createSchema, options) ],
+    create: [processBilling(), validation.form(createSchema, options)],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
@@ -23,7 +23,7 @@ module.exports = {
     create: [processBillingOrder()],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -33,6 +33,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };

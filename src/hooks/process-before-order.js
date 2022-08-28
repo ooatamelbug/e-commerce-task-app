@@ -4,7 +4,7 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async (context) => {
-    const { data, app, params, method, id } = context;
+    const {  app, params, method, id } = context;
 
     const { user } = params;
 
@@ -14,9 +14,9 @@ module.exports = (options = {}) => {
       .find({ query: { user_id: user.id } })).data[0];
 
     // put the required data for process 
-    delete userCart.created_at
-    delete userCart.updated_at
-    delete userCart.id
+    delete userCart.created_at;
+    delete userCart.updated_at;
+    delete userCart.id;
     context.data = userCart;
 
     if (method == "remove" || method == "get") {

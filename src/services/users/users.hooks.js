@@ -12,7 +12,7 @@ const { hashPassword, protect } =
 
 const validationUser = require("../../hooks/validation-user");
 
-const processUser = require('../../hooks/process-user');
+const processUser = require("../../hooks/process-user");
 
 module.exports = {
   before: {

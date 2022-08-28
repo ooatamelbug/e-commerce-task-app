@@ -10,7 +10,7 @@ module.exports = (options = {}) => {
     const order = await app.service("orders").get(data.order_id);
     
     if(order.user_id != params.user.id) {
-      throw new Error(`you are not allow to paid this order`)
+      throw new Error("you are not allow to paid this order");
     }
 
     // create object from Bill
@@ -20,7 +20,7 @@ module.exports = (options = {}) => {
       total_amount: order.total_price,
       type_paid: data.type_paid,
       user_id: params.user.id
-    }
+    };
 
     // console.log(newBill)
     context.data =  newBill;   

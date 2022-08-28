@@ -19,7 +19,7 @@ module.exports = (options = {}) => {
         throw new Error("NOT ALLOW");
       }
     };
-    
+    // make sure if typeof method to authorize to this operation
     if (method == "update" || method == "create") {
       store(data.store_id);
     } else if (method == "remove") {

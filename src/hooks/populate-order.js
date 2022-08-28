@@ -12,8 +12,8 @@ module.exports = (options = {}) => {
       return {
         ...orderDetail,
         product
-      }
-    }
+      };
+    };
 
     // get the order and order Details 
     const getOrder = async order => {
@@ -23,13 +23,13 @@ module.exports = (options = {}) => {
         ...order,
         user,
         orderDetails: await Promise.all(orderDetails.data.map(getProduct))
-      }
-    }
+      };
+    };
 
     if(method == "find") {
-      result.data = await Promise.all(result.data.map(getOrder))
+      result.data = await Promise.all(result.data.map(getOrder));
     } else {
-      context.result = await getOrder(result)
+      context.result = await getOrder(result);
     }
 
     return context;

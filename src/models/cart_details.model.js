@@ -24,8 +24,8 @@ module.exports = function (app) {
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
 
-            table.integer("product_id").unsigned().notNullable();
-            table
+          table.integer("product_id").unsigned().notNullable();
+          table
             .foreign("product_id")
             .references("id")
             .inTable("products")

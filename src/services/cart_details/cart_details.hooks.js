@@ -4,16 +4,15 @@ const {
   createSchema,
   options,
   updateSchema,
-  idSchema,
 } = require("./cart_details.validation");
 
 const orderCartProducts = require("../../hooks/order-cart-products");
 
-const addToCart = require('../../hooks/add-to-cart');
+const addToCart = require("../../hooks/add-to-cart");
 
-const processCartDetails = require('../../hooks/process-cart-details');
+const processCartDetails = require("../../hooks/process-cart-details");
 
-const processRemoveFromCart = require('../../hooks/process-remove-from-cart');
+const processRemoveFromCart = require("../../hooks/process-remove-from-cart");
 
 module.exports = {
   before: {
@@ -30,10 +29,7 @@ module.exports = {
       validation.form(updateSchema, options),
       orderCartProducts(),
     ],
-    patch: [
-      processCartDetails(),
-      validation.form(updateSchema, options),
-    ],
+    patch: [processCartDetails(), validation.form(updateSchema, options)],
     remove: [processRemoveFromCart()],
   },
 

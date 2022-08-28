@@ -6,7 +6,7 @@ exports.CartDetails = class CartDetails extends Service {
       ...options,
       name: "cart_details",
     });
-    this.app = app
+    this.app = app;
   }
 
   async create(data, param) {
@@ -23,7 +23,8 @@ exports.CartDetails = class CartDetails extends Service {
       addToCart = {
         ...productInCart.data[0],
         quantity: productInCart.data[0].quantity + quantity,
-        total_price: productInCart.data[0].total_price + quantity * price_of_one,
+        total_price:
+          productInCart.data[0].total_price + quantity * price_of_one,
       };
       return super.patch(productInCart.data[0].id, addToCart, param);
     } else {
@@ -39,5 +40,4 @@ exports.CartDetails = class CartDetails extends Service {
       return super.create(addToCart, param);
     }
   }
-
 };

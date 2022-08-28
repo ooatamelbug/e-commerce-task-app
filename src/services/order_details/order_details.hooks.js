@@ -4,7 +4,6 @@ const {
   createSchema,
   options,
   updateSchema,
-  idSchema,
 } = require("./order_details.validation");
 
 const orderCartProducts = require("../../hooks/order-cart-products");

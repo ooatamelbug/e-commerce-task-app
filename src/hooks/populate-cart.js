@@ -7,7 +7,7 @@ module.exports = (options = {}) => {
     const { app, params, result, method } = context;
     // auth user for do this opert
     if(params.user.id != result.user_id) {
-      throw new Error('NOT ALLOW')
+      throw new Error("NOT ALLOW");
     }
 
     // get the Product Details 
