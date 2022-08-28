@@ -5,7 +5,7 @@ const createSchema = joi.object().keys({
     product_id: joi.number().required().min(1),
     cart_id: joi.number().required().min(1),
     quantity: joi.number().min(1).required(),
-    price_of_one: joi.number().less(1.5).precision(3).min(1).required()
+    price_of_one: joi.number().precision(3).min(1).required()
 });
 
 

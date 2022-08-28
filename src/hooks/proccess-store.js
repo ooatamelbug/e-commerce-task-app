@@ -6,6 +6,7 @@ module.exports = (options = {}) => {
   return async (context) => {
     const { app, params, result, method } = context;
 
+    // get the owner Store  
     const getUser = async (store) => {
       const user = await app.service("users").get(store.user_id, params);
 

@@ -9,6 +9,8 @@ const createSchema = joi.object().keys({
 // create user schema
 const updateSchema = joi.object().keys({
     user_id: joi.number().min(3).optional(),
+    count_product: joi.number().min(1).optional(),
+    total_price: joi.number().precision(3).min(1).optional(),
 });
 
 const idSchema = joi.object().keys({

@@ -5,7 +5,8 @@
 module.exports = (options = {}) => {
   return async context => {
     const { data, app, params } = context;
-
+    
+    // make sure the mount of product is enough
     const product = await app.service("products").get(data.product_id);
     if(product.quantity  < data.quantity) {
       throw new Error("there are not enough quantity");

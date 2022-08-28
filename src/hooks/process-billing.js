@@ -13,12 +13,16 @@ module.exports = (options = {}) => {
       throw new Error(`you are not allow to paid this order`)
     }
 
+    // create object from Bill
     const newBill = {
-      ...data,
+      order_id :data.order_id,
+      card_date :data.card_date,
       total_amount: order.total_price,
-      type_paid: data.typePaid,
+      type_paid: data.type_paid,
       user_id: params.user.id
     }
+
+    // console.log(newBill)
     context.data =  newBill;   
     return context;
   };

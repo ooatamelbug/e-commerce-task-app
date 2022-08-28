@@ -3,29 +3,39 @@
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
-  return async context => {
+  return async (context) => {
     const { app, params, result, method } = context;
     const { user } = params;
-    
-    // get cart data of user auth
-    const userCart = await app.service("cart").find({ user_id: user.id })[0];
-    // get cart_details based on cart of user id
-    const userCartDetails = await app.service("cart_details").find({ cart_id: userCart.id });
-    
-    // save in order_details the cart Details 
-    const addOrderDetails = async (cartDetails) => {
-      delete cartDetails.id;
-      delete cartDetails.cart_id;
-      cartDetails.order_id = result.data.id;
-      const createOrder  = await  app.service("order_details").create(cartDetails, params);  
-    }
-    // create order_details
-    const createOrderDetails = await Promise.all(userCartDetails.forEach(addOrderDetails));
 
-    // delete user cart 
-    const deleteUserCart = await app.service("cart").remove(userCart.id);
+    // get cart data of user auth
+    const userCart = (await app.service("carts").find({ query: { user_id: user.id } })).data[0];
+    // get cart_details based on cart of user id
+    const userCartDetails = await app
+      .service("cart-details")
+      .find({ query: { cart_id: userCart.id } });
+
+    // save in order_details the cart Details
+    const addOrderDetails = async (cartDetails) => {
+      const newOrderDetails = {
+        quantity: cartDetails.quantity,
+        price_of_one: cartDetails.price_of_one,
+        order_id: result.id,
+        product_id: cartDetails.product_id
+      }
+      await app
+        .service("order-details")
+        .create(newOrderDetails, params);
+    };
+    // create order_details
+    await Promise.all(
+       userCartDetails.data.map(addOrderDetails)
+    );
+
+    // delete user cart
+    const deleteUserCart = await app.service("carts").remove(userCart.id);
+
     // recreate User Cart
-    const createUserCart = await app.service("cart").create(user.id);
+    const createUserCart = await app.service("carts").create({ user_id :user.id }, params);
 
     return context;
   };

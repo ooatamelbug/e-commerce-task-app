@@ -10,7 +10,7 @@ const createSchema = joi.object().keys({
         const year = value.split("/")
         if( new Date().getFullYear() == `20${year[0]}` ) {
             if (new Date().getMonth() + 1 > Number(year[1])) {
-                return helper.message("invalid vard");
+                return helper.message("invalid card");
             }
             return true
         }

@@ -4,7 +4,7 @@ const joi = require('joi');
 const createSchema = joi.object().keys({
     user_id: joi.number().required().min(1),
     count_product: joi.number().required().min(1),
-    discount: joi.number().optional().min(0),
+    discount: joi.number().precision(3).min(0).optional(),
     total_price: joi.number().precision(3).required().min(1),
 });
 

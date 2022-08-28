@@ -20,8 +20,4 @@ exports.Carts = class Carts extends Service {
     console.log(newCart)
     return super.create(newCart, param);
   }
-
-  find(param) {
-    throw new Error("not allowed url");
-  }
 };

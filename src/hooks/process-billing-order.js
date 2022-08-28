@@ -3,12 +3,17 @@
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
-  return async context => {
-    const { app, params, result, method } = context;
-
-    const update = await app.service("order").update({
-      status: "paid"
-    }, result.data.order_id);
+  return async (context) => {
+    const { app, params, result } = context;
+    
+    // update te order after the process of billing is complete 
+    const update = await app.service("orders").patch(
+      result.order_id,
+      {
+        status: "paid",
+      },
+      params
+    );
 
     return context;
   };

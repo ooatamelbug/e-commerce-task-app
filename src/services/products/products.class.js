@@ -17,4 +17,7 @@ exports.Products = class Products extends Service {
     };
     return super.update(id, updatedata, param);
   }
+  patch(id, data, param) {
+    return super.patch(id, data, param)
+  }
 };

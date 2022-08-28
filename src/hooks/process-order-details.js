@@ -3,18 +3,22 @@
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
-  return async context => {
+  return async (context) => {
     const { app, params, result, method } = context;
-    
-    const product =  await app.service("products").get(result.data.product_id);
+    // get out product by id
+    const product = await app.service("products").get(result.product_id);
 
+    // put the required data for process 
+    delete product.id
+    delete product.store
+    delete product.created_at
+    delete product.updated_at
     const afterOrder = {
       ...product,
-      quantity: Number(product.quantity) - Number(result.data.quantity)
-    }
-
-    const updateProduct =  await app.service("products").update(result.data.product_id, afterOrder, params);
-    
+      quantity: Number(product.quantity) - Number(result.quantity),
+    };
+    // update products 
+    await app.service("products").patch(result.product_id, afterOrder, params);
 
     return context;
   };

@@ -13,7 +13,7 @@ module.exports = function (app) {
         .createTable(tableName, (table) => {
           table.increments("id").primary();
 
-          table.double("discount").notNullable();
+          table.double("discount").default(0);
 
           table.integer("count_product").notNullable();
 

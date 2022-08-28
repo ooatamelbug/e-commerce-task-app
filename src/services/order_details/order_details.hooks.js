@@ -1,4 +1,4 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
+const { authenticate } = require("@feathersjs/authentication").hooks;
 const validation = require("feathers-validate-joi");
 const {
   createSchema,
@@ -7,23 +7,19 @@ const {
   idSchema,
 } = require("./order_details.validation");
 
-const orderCartProducts = require('../../hooks/order-cart-products');
+const orderCartProducts = require("../../hooks/order-cart-products");
 
-const processOrderDetails = require('../../hooks/process-order-details');
+const processOrderDetails = require("../../hooks/process-order-details");
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [authenticate("jwt")],
     find: [],
-    get: [validation.form(idSchema, options)],
+    get: [],
     create: [validation.form(createSchema, options), orderCartProducts()],
-    update: [
-      validation.form(idSchema, options),
-      validation.form(updateSchema, options),
-      orderCartProducts()
-    ],
+    update: [validation.form(updateSchema, options), orderCartProducts()],
     patch: [],
-    remove: [validation.form(idSchema, options)]
+    remove: [],
   },
 
   after: {
@@ -33,7 +29,7 @@ module.exports = {
     create: [processOrderDetails()],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -43,6 +39,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };

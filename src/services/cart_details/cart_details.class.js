@@ -1,17 +1,17 @@
 const { Service } = require("feathers-knex");
 
 exports.CartDetails = class CartDetails extends Service {
-  constructor(options) {
+  constructor(options, app) {
     super({
       ...options,
       name: "cart_details",
     });
+    this.app = app
   }
 
   async create(data, param) {
     const { product_id, cart_id, price_of_one, quantity } = data;
-
-    const productInCart = await super.find({
+    const productInCart = await this.find({
       query: {
         cart_id,
         product_id,
@@ -19,12 +19,13 @@ exports.CartDetails = class CartDetails extends Service {
     });
 
     let addToCart;
-    if (inCart.length > 0) {
+    if (productInCart.data.length > 0) {
       addToCart = {
-        ...productInCart[0],
-        quantity: productInCart[0].quantity + quantity,
-        total_price: productInCart[0].total_price + quantity * price_of_one,
+        ...productInCart.data[0],
+        quantity: productInCart.data[0].quantity + quantity,
+        total_price: productInCart.data[0].total_price + quantity * price_of_one,
       };
+      return super.patch(productInCart.data[0].id, addToCart, param);
     } else {
       const total = Number(price_of_one) * Number(quantity);
 
@@ -35,7 +36,8 @@ exports.CartDetails = class CartDetails extends Service {
         price_of_one,
         total_price: total,
       };
+      return super.create(addToCart, param);
     }
-    return super.create(addToCart, param);
   }
+
 };

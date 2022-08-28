@@ -3,12 +3,11 @@
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
-  return async (context) => {
-    const { app, params, result } = context;
-
-    // create cart for this user after created it
-    const addCart = app.service("carts").create({ user_id: result.id }, params);
-
+  return async context => {
+    const { data, app, params, method, id } = context;
+    // get out te cart id of user
+    const cart = (await app.service("carts").find({ query: { user_id: params.user.id } }));
+    data.cart_id = cart.data[0].id;
     return context;
   };
 };

@@ -3,18 +3,29 @@
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
-  return async context => {
-    const { data, app, params } = context;
+  return async (context) => {
+    const { data, app, params, method, id } = context;
 
     const { user } = params;
 
-   
+    // get out the cart of user
+    const userCart = (await app
+      .service("carts")
+      .find({ query: { user_id: user.id } })).data[0];
 
-    const userCart = await app.service("cart").find({ user_id: user.id })[0];
-    
-    context.data = userCart
-    
-        
+    // put the required data for process 
+    delete userCart.created_at
+    delete userCart.updated_at
+    delete userCart.id
+    context.data = userCart;
+
+    if (method == "remove" || method == "get") {
+      const order = await app.service("orders").get(id);
+      if (user.id != order.user_id) {
+        throw new Error("NOT ALLOW");
+      }
+    }
+
     return context;
   };
 };

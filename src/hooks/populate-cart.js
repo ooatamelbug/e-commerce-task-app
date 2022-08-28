@@ -5,21 +5,23 @@
 module.exports = (options = {}) => {
   return async (context) => {
     const { app, params, result, method } = context;
-
-    if(params.user.id != result.data.user_id) {
+    // auth user for do this opert
+    if(params.user.id != result.user_id) {
       throw new Error('NOT ALLOW')
     }
 
+    // get the Product Details 
     const getpopulateProduct = async (cartDetails) => {
-      const product = await app.service("products").get(cartDetails.id, param);
+      const product = await app.service("products").get(cartDetails.product_id);
       return {
         ...cartDetails,
         product,
       };
     };
 
+    // get the cart and cart Details 
     const getpopulateCart = async (cart) => {
-      const user = await app.service("users").get(cart.user_id, param);
+      const user = await app.service("users").get(cart.user_id);
       const cart_details = await app
         .service("cart-details")
         .find({ query: { cart_id: cart.id } });
@@ -27,14 +29,15 @@ module.exports = (options = {}) => {
         ...cart,
         user,
         cart_details: {
-          ...(await Promise.all(cart_details.map(getpopulateProduct))),
+          ...(await Promise.all(cart_details.data.map(getpopulateProduct))),
         },
       };
     };
 
-    if (method === "get") {
+    if (method == "get") {
       result.data = await getpopulateCart(result);
     }
+    
     return context;
   };
 };
