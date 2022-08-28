@@ -1,4 +1,5 @@
 const { Service } = require("feathers-knex");
+const crypto = require("crypto");
 
 const avatarUrl = "https://s.gravatar.com/avatar";
 const query = "s=60";

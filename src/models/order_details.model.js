@@ -11,22 +11,24 @@ module.exports = function (app) {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id");
+          table.increments("id").primary();
 
-          table.integer("quantity");
-          table.double("price_of_one");
-          table.double("total_price");
+          table.integer("quantity").notNullable();
+          table.double("price_of_one").notNullable();
+          table.double("total_price").notNullable();
 
+          table.integer("order_id").unsigned().notNullable();
           table
-            .integer("order_id")
-            .reference("id")
+            .foreign("order_id")
+            .references("id")
             .inTable("orders")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
 
+          table.integer("product_id").unsigned().notNullable();
           table
-            .integer("product_id")
-            .reference("id")
+            .foreign("product_id")
+            .references("id")
             .inTable("products")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");

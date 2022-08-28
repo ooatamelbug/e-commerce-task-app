@@ -6,8 +6,8 @@ module.exports = (options = {}) => {
   return async (context) => {
     const { data, app } = context;
 
-    const user = await app.service("users").get(data.email);
-    if (user) {
+    const user = await app.service("users").find({ email: data.email});
+    if (user.data.length > 0) {
       throw new Error("this email is exist before");
     }
 

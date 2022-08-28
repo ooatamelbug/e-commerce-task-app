@@ -11,24 +11,28 @@ module.exports = function (app) {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id");
-          table.double("total_amount");
-          table.string("type_paid");
+          table.increments("id").primary();
+          table.double("total_amount").notNullable();
+          table.string("type_paid").notNullable();
+
+          table.integer("user_id").unsigned().notNullable();
 
           table
-            .integer("user_id")
-            .reference("id")
+            .foreign("user_id")
+            .references("id")
             .inTable("users")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
 
+          table.integer("order_id").unsigned().notNullable();
+
           table
-            .integer("order_id")
-            .reference("id")
+            .foreign("order_id")
+            .references("id")
             .inTable("orders")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
-          
+
           table.timestamps(true, true);
         })
         .then(() => console.log(`Created ${tableName} table`))

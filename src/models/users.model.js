@@ -12,15 +12,15 @@ module.exports = function (app) {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id");
+          table.increments("id").primary();
 
           table.string("email").unique();
-          table.string("password");
+          table.string("password").notNullable();
 
-          table.string("firstname");
-          table.string("lastname");
+          table.string("firstname").notNullable();
+          table.string("lastname").notNullable();
 
-          table.string("avatar");
+          table.string("avatar").notNullable();
 
           table.timestamps(true, true);
         })

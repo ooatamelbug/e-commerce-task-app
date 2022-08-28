@@ -11,14 +11,15 @@ module.exports = function (app) {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id");
+          table.increments("id").primary();
           table.integer("count_product");
 
           table.double("total_price");
 
+          table.integer("user_id").unsigned().notNullable();
           table
-            .integer("user_id")
-            .reference("id")
+            .foreign("user_id")
+            .references("id")
             .inTable("users")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");

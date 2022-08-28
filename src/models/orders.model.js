@@ -11,19 +11,21 @@ module.exports = function (app) {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id");
+          table.increments("id").primary();
 
-          table.double("discount");
+          table.double("discount").notNullable();
 
-          table.reinteger("count_product");
+          table.integer("count_product").notNullable();
 
-          table.double("total_price");
+          table.double("total_price").notNullable();
 
-          table.string("status").default("pending")
+          table.string("status").default("pending").notNullable();
+
+          table.integer("user_id").unsigned().notNullable();
 
           table
-            .integer("user_id")
-            .reference("id")
+            .foreign("user_id")
+            .references("id")
             .inTable("users")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");

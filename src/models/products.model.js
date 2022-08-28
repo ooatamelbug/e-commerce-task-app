@@ -11,21 +11,23 @@ module.exports = function (app) {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id");
+          table.increments("id").primary();
 
-          table.string("name");
-          table.text("description");
+          table.string("name").notNullable();
+          table.text("description").notNullable();
 
-          table.integer("quantity");
+          table.integer("quantity").notNullable();
 
-          table.double("price");
+          table.double("price").notNullable();
 
-          table.string("status");
+          table.string("status").notNullable();
 
           table.string("image_url");
-          
+
+          table.integer("store_id").unsigned().notNullable();
+
           table
-            .integer("store_id")
+            .foreign("store_id")
             .references("id")
             .inTable("stores")
             .onDelete("CASCADE")

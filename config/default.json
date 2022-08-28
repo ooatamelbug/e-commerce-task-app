@@ -30,6 +30,6 @@
   },
   "postgres": {
     "client": "pg",
-    "connection": "postgres://postgres:@localhost:5432/shop_app"
+    "connection": "postgres://postgres:postgres@localhost:5432/shop_app"
   }
 }

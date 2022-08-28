@@ -11,15 +11,17 @@ module.exports = function (app) {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id");
+          table.increments("id").primary();
 
-          table.string("name");
-          table.string("address");
-          table.string("logo");
+          table.string("name").notNullable();
+          table.string("address").notNullable();
+          table.string("logo").notNullable();
 
+          table.integer("user_id").unsigned().notNullable();
+          
           table
-            .integer("user_id")
-            .reference("id")
+            .foreign("user_id")
+            .references("id")
             .inTable("users")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
