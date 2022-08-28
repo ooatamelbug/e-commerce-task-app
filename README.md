@@ -6,6 +6,8 @@
 
 This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
 
+This project about api order app for create store and show products and make orders
+
 ## Getting Started
 
 Getting up and running is as easy as 1, 2, 3.
